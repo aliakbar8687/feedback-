@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form - Syvaxia Training Institute</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: move 20s linear infinite;
+        }
+
+        @keyframes move {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-container {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .rating-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .rating-group {
+            margin-bottom: 20px;
+        }
+
+        .rating-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .rating-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .rating-options {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .rating-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: white;
+            border: 2px solid #ecf0f1;
+            transition: all 0.3s ease;
+        }
+
+        .rating-option:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .rating-option input[type="radio"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .rating-option input[type="radio"]:checked + span {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto 0;
+            min-width: 200px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .rating-options {
+                justify-content: center;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Syvaxia Training Institute</h1>
+            <p>Your Feedback Matters - Help Us Improve Our Training Programs</p>
+        </div>
+
+        <div class="form-container">
+            <form id="feedbackForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Training Course/Program <span class="required">*</span></label>
+                    <select id="course" name="course" required>
+                        <option value="">Select your course</option>
+                        <option value="web-development">Web Development</option>
+                        <option value="data-science">Data Science & Analytics</option>
+                        <option value="digital-marketing">Digital Marketing</option>
+                        <option value="project-management">Project Management</option>
+                        <option value="cybersecurity">Cybersecurity</option>
+                        <option value="cloud-computing">Cloud Computing</option>
+                        <option value="mobile-development">Mobile App Development</option>
+                        <option value="ai-ml">AI & Machine Learning</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="instructor">Instructor Name</label>
+                    <input type="text" id="instructor" name="instructor">
+                </div>
+
+                <div class="rating-section">
+                    <div class="rating-group">
+                        <label class="rating-label">Overall Training Experience <span class="required">*</span></label>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="overallRating" value="excellent" required>
+                                <span>Excellent</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="overallRating" value="good" required>
+                                <span>Good</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="overallRating" value="average" required>
+                                <span>Average</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="overallRating" value="poor" required>
+                                <span>Poor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="rating-group">
+                        <label class="rating-label">Course Content Quality</label>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="contentRating" value="excellent">
+                                <span>Excellent</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="contentRating" value="good">
+                                <span>Good</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="contentRating" value="average">
+                                <span>Average</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="contentRating" value="poor">
+                                <span>Poor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="rating-group">
+                        <label class="rating-label">Instructor Effectiveness</label>
+                        <div class="rating-options">
+                            <label class="rating-option">
+                                <input type="radio" name="instructorRating" value="excellent">
+                                <span>Excellent</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="instructorRating" value="good">
+                                <span>Good</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="instructorRating" value="average">
+                                <span>Average</span>
+                            </label>
+                            <label class="rating-option">
+                                <input type="radio" name="instructorRating" value="poor">
+                                <span>Poor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Which aspects did you find most valuable? (Select all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="practical-exercises">
+                            <span>Practical Exercises</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="real-world-examples">
+                            <span>Real-world Examples</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="interactive-sessions">
+                            <span>Interactive Sessions</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="course-materials">
+                            <span>Course Materials</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="networking">
+                            <span>Networking Opportunities</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="valuableAspects" value="support">
+                            <span>Instructor Support</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="improvements">What could we improve?</label>
+                    <textarea id="improvements" name="improvements" placeholder="Share your suggestions for improvement..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="recommend">Would you recommend Syvaxia to others?</label>
+                    <select id="recommend" name="recommend">
+                        <option value="">Please select</option>
+                        <option value="definitely">Definitely Yes</option>
+                        <option value="probably">Probably Yes</option>
+                        <option value="maybe">Maybe</option>
+                        <option value="probably-not">Probably Not</option>
+                        <option value="definitely-not">Definitely Not</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalComments">Additional Comments</label>
+                    <textarea id="additionalComments" name="additionalComments" placeholder="Any other feedback you'd like to share..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simple form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let allValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    allValid = false;
+                    field.style.borderColor = '#e74c3c';
+                } else {
+                    field.style.borderColor = '#ecf0f1';
+                }
+            });
+            
+            if (allValid) {
+                // In a real implementation, you would send this data to your server
+                alert('Thank you for your feedback! We appreciate your input and will use it to improve our training programs.');
+                
+                // Optionally reset the form
+                this.reset();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('input, select, textarea').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-2px)';
+            });
+            
+            element.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
