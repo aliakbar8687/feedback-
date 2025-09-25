@@ -304,12 +304,72 @@
 
                 <div class="form-row">
                     <div class="form-group">
+                        <label for="admissionNumber">Admission Number <span class="required">*</span></label>
+                        <input type="text" id="admissionNumber" name="admissionNumber" required placeholder="Enter your admission number">
+                    </div>
+                    <div class="form-group">
                         <label for="email">Email Address <span class="required">*</span></label>
                         <input type="email" id="email" name="email" required>
                     </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
                         <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="pincode">Pin Code <span class="required">*</span></label>
+                        <input type="text" id="pincode" name="pincode" required placeholder="Enter pin code" maxlength="6" pattern="[0-9]{6}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city">City <span class="required">*</span></label>
+                        <input type="text" id="city" name="city" required placeholder="Enter your city">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State <span class="required">*</span></label>
+                        <select id="state" name="state" required>
+                            <option value="">Select your state</option>
+                            <option value="andhra-pradesh">Andhra Pradesh</option>
+                            <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                            <option value="assam">Assam</option>
+                            <option value="bihar">Bihar</option>
+                            <option value="chhattisgarh">Chhattisgarh</option>
+                            <option value="goa">Goa</option>
+                            <option value="gujarat">Gujarat</option>
+                            <option value="haryana">Haryana</option>
+                            <option value="himachal-pradesh">Himachal Pradesh</option>
+                            <option value="jharkhand">Jharkhand</option>
+                            <option value="karnataka">Karnataka</option>
+                            <option value="kerala">Kerala</option>
+                            <option value="madhya-pradesh">Madhya Pradesh</option>
+                            <option value="maharashtra">Maharashtra</option>
+                            <option value="manipur">Manipur</option>
+                            <option value="meghalaya">Meghalaya</option>
+                            <option value="mizoram">Mizoram</option>
+                            <option value="nagaland">Nagaland</option>
+                            <option value="odisha">Odisha</option>
+                            <option value="punjab">Punjab</option>
+                            <option value="rajasthan">Rajasthan</option>
+                            <option value="sikkim">Sikkim</option>
+                            <option value="tamil-nadu">Tamil Nadu</option>
+                            <option value="telangana">Telangana</option>
+                            <option value="tripura">Tripura</option>
+                            <option value="uttar-pradesh">Uttar Pradesh</option>
+                            <option value="uttarakhand">Uttarakhand</option>
+                            <option value="west-bengal">West Bengal</option>
+                            <option value="andaman-nicobar">Andaman and Nicobar Islands</option>
+                            <option value="chandigarh">Chandigarh</option>
+                            <option value="dadra-nagar-haveli">Dadra and Nagar Haveli and Daman and Diu</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="jammu-kashmir">Jammu and Kashmir</option>
+                            <option value="ladakh">Ladakh</option>
+                            <option value="lakshadweep">Lakshadweep</option>
+                            <option value="puducherry">Puducherry</option>
+                        </select>
                     </div>
                 </div>
 
@@ -553,7 +613,28 @@
         });
 
         // Initialize star ratings when page loads
-        document.addEventListener('DOMContentLoaded', initStarRatings);
+        document.addEventListener('DOMContentLoaded', function() {
+            initStarRatings();
+            
+            // Add pin code validation
+            const pincodeField = document.getElementById('pincode');
+            pincodeField.addEventListener('input', function(e) {
+                // Remove non-numeric characters
+                this.value = this.value.replace(/[^0-9]/g, '');
+                
+                // Limit to 6 digits
+                if (this.value.length > 6) {
+                    this.value = this.value.slice(0, 6);
+                }
+            });
+            
+            // Add admission number formatting
+            const admissionField = document.getElementById('admissionNumber');
+            admissionField.addEventListener('input', function(e) {
+                // Convert to uppercase for consistency
+                this.value = this.value.toUpperCase();
+            });
+        });
     </script>
 </body>
 </html>
