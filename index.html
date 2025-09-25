@@ -163,38 +163,38 @@
             display: block;
         }
 
-        .rating-options {
+        .star-rating {
             display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .rating-option {
-            display: flex;
-            align-items: center;
             gap: 5px;
+            align-items: center;
+        }
+
+        .star {
+            font-size: 2rem;
+            color: #ddd;
             cursor: pointer;
-            padding: 8px 15px;
-            border-radius: 20px;
-            background: white;
-            border: 2px solid #ecf0f1;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            user-select: none;
         }
 
-        .rating-option:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        .star:hover {
+            transform: scale(1.1);
         }
 
-        .rating-option input[type="radio"] {
-            width: auto;
-            margin: 0;
+        .star.active {
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
 
-        .rating-option input[type="radio"]:checked + span {
-            color: #667eea;
+        .star.hover {
+            color: #ffed4e;
+        }
+
+        .rating-text {
+            margin-left: 15px;
             font-weight: 600;
+            color: #2c3e50;
+            min-width: 100px;
         }
 
         .checkbox-group {
@@ -337,68 +337,41 @@
                 <div class="rating-section">
                     <div class="rating-group">
                         <label class="rating-label">Overall Training Experience <span class="required">*</span></label>
-                        <div class="rating-options">
-                            <label class="rating-option">
-                                <input type="radio" name="overallRating" value="excellent" required>
-                                <span>Excellent</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="overallRating" value="good" required>
-                                <span>Good</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="overallRating" value="average" required>
-                                <span>Average</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="overallRating" value="poor" required>
-                                <span>Poor</span>
-                            </label>
+                        <div class="star-rating" data-rating="overallRating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="rating-text" id="overallText">Click to rate</span>
                         </div>
+                        <input type="hidden" name="overallRating" id="overallRating" required>
                     </div>
 
                     <div class="rating-group">
                         <label class="rating-label">Course Content Quality</label>
-                        <div class="rating-options">
-                            <label class="rating-option">
-                                <input type="radio" name="contentRating" value="excellent">
-                                <span>Excellent</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="contentRating" value="good">
-                                <span>Good</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="contentRating" value="average">
-                                <span>Average</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="contentRating" value="poor">
-                                <span>Poor</span>
-                            </label>
+                        <div class="star-rating" data-rating="contentRating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="rating-text" id="contentText">Click to rate</span>
                         </div>
+                        <input type="hidden" name="contentRating" id="contentRating">
                     </div>
 
                     <div class="rating-group">
                         <label class="rating-label">Instructor Effectiveness</label>
-                        <div class="rating-options">
-                            <label class="rating-option">
-                                <input type="radio" name="instructorRating" value="excellent">
-                                <span>Excellent</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="instructorRating" value="good">
-                                <span>Good</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="instructorRating" value="average">
-                                <span>Average</span>
-                            </label>
-                            <label class="rating-option">
-                                <input type="radio" name="instructorRating" value="poor">
-                                <span>Poor</span>
-                            </label>
+                        <div class="star-rating" data-rating="instructorRating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                            <span class="rating-text" id="instructorText">Click to rate</span>
                         </div>
+                        <input type="hidden" name="instructorRating" id="instructorRating">
                     </div>
                 </div>
 
@@ -406,28 +379,28 @@
                     <label>Which aspects did you find most valuable? (Select all that apply)</label>
                     <div class="checkbox-group">
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="practical-exercises">
-                            <span>Practical Exercises</span>
+                            <input type="checkbox" name="valuableAspects" value="trainer-expertise">
+                            <span>☐ Trainer's expertise and knowledge</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="real-world-examples">
-                            <span>Real-world Examples</span>
+                            <input type="checkbox" name="valuableAspects" value="clarity-explanations">
+                            <span>☐ Clarity of explanations</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="interactive-sessions">
-                            <span>Interactive Sessions</span>
+                            <input type="checkbox" name="valuableAspects" value="hands-on-exercises">
+                            <span>☐ Hands-on exercises / system practice</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="course-materials">
-                            <span>Course Materials</span>
+                            <input type="checkbox" name="valuableAspects" value="training-materials">
+                            <span>☐ Training materials provided</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="networking">
-                            <span>Networking Opportunities</span>
+                            <input type="checkbox" name="valuableAspects" value="relevance-topics">
+                            <span>☐ Relevance of topics to my work</span>
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox" name="valuableAspects" value="support">
-                            <span>Instructor Support</span>
+                            <input type="checkbox" name="valuableAspects" value="certification-training">
+                            <span>☐ Certification-related training</span>
                         </label>
                     </div>
                 </div>
@@ -460,6 +433,67 @@
     </div>
 
     <script>
+        // Star rating functionality
+        const ratingTexts = {
+            1: 'Poor',
+            2: 'Fair', 
+            3: 'Good',
+            4: 'Very Good',
+            5: 'Excellent'
+        };
+
+        function initStarRatings() {
+            document.querySelectorAll('.star-rating').forEach(rating => {
+                const stars = rating.querySelectorAll('.star');
+                const ratingName = rating.getAttribute('data-rating');
+                const hiddenInput = document.getElementById(ratingName);
+                const textElement = rating.querySelector('.rating-text');
+                
+                stars.forEach((star, index) => {
+                    // Click event
+                    star.addEventListener('click', () => {
+                        const value = parseInt(star.getAttribute('data-value'));
+                        hiddenInput.value = value;
+                        textElement.textContent = ratingTexts[value];
+                        
+                        // Update star display
+                        stars.forEach((s, i) => {
+                            if (i < value) {
+                                s.classList.add('active');
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    });
+                    
+                    // Hover events
+                    star.addEventListener('mouseenter', () => {
+                        const value = parseInt(star.getAttribute('data-value'));
+                        stars.forEach((s, i) => {
+                            if (i < value) {
+                                s.classList.add('hover');
+                            } else {
+                                s.classList.remove('hover');
+                            }
+                        });
+                        textElement.textContent = ratingTexts[value];
+                    });
+                });
+                
+                // Reset on mouse leave
+                rating.addEventListener('mouseleave', () => {
+                    stars.forEach(s => s.classList.remove('hover'));
+                    const currentValue = hiddenInput.value;
+                    if (currentValue) {
+                        textElement.textContent = ratingTexts[currentValue];
+                    } else {
+                        textElement.textContent = 'Click to rate';
+                    }
+                });
+            });
+        }
+
+        // Form submission
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -470,9 +504,22 @@
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     allValid = false;
-                    field.style.borderColor = '#e74c3c';
+                    if (field.type === 'hidden') {
+                        // For star ratings, highlight the rating section
+                        const ratingSection = field.closest('.rating-group');
+                        if (ratingSection) {
+                            ratingSection.style.borderLeft = '4px solid #e74c3c';
+                            setTimeout(() => {
+                                ratingSection.style.borderLeft = 'none';
+                            }, 3000);
+                        }
+                    } else {
+                        field.style.borderColor = '#e74c3c';
+                    }
                 } else {
-                    field.style.borderColor = '#ecf0f1';
+                    if (field.type !== 'hidden') {
+                        field.style.borderColor = '#ecf0f1';
+                    }
                 }
             });
             
@@ -482,6 +529,13 @@
                 
                 // Optionally reset the form
                 this.reset();
+                // Reset star ratings
+                document.querySelectorAll('.star').forEach(star => {
+                    star.classList.remove('active');
+                });
+                document.querySelectorAll('.rating-text').forEach(text => {
+                    text.textContent = 'Click to rate';
+                });
             } else {
                 alert('Please fill in all required fields.');
             }
@@ -497,6 +551,9 @@
                 this.parentElement.style.transform = 'translateY(0)';
             });
         });
+
+        // Initialize star ratings when page loads
+        document.addEventListener('DOMContentLoaded', initStarRatings);
     </script>
 </body>
 </html>
